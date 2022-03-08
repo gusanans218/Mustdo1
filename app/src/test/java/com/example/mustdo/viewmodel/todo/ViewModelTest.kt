@@ -21,7 +21,7 @@ import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnit
 import org.mockito.junit.MockitoRule
 
-internal class VewModelTest :KoinTest{
+internal abstract class ViewModelTest :KoinTest{
     @get:Rule
     val mockitoRule: MockitoRule? = MockitoJUnit.rule()
 
