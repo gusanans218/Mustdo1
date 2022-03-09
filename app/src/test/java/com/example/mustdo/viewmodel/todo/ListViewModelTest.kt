@@ -1,8 +1,12 @@
 package com.example.mustdo.viewmodel.todo
 
+import com.example.mustdo.data.repository.entity.ToDoEntity
+import com.example.mustdo.domain.todo.InsertToDoListUseCase
 import com.example.mustdo.presentation.list.ListViewModel
 import org.junit.Before
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runBlockingTest
+import org.junit.Test
 import org.koin.android.compat.ScopeCompat.viewModel
 import org.koin.test.inject
 
@@ -18,7 +22,15 @@ import org.koin.test.inject
 internal class ListViewModelTest:ViewModelTest() {
 
     private val viewModel: ListViewModel by inject()
-
+    private val insertToDoListUseCase: InsertToDoListUseCase by inject()
+    private val mockList = (0 until 10).map {
+        ToDoEntity(
+            id = it.toLong(),
+            title = "title $it",
+            description = "description $it",
+            hasCompleted = false
+        )
+    }
     //필요한 Usecase를
     //1. InsertToDoListUseCase
     //2. GetToDoItemUseCase
@@ -27,5 +39,14 @@ internal class ListViewModelTest:ViewModelTest() {
     fun init(){
         initData()
     }
-    private fun initData() =
+    private fun initData() = runBlockingTest{
+            insertToDoListUseCase(mockList)//데이터 초기화
+    }
+
+    //데이터 불러오는 테스트
+    //Test 1. 입력된 데이터를 불러와서 검증한다.
+    @Test
+    fun `test viewModel fetch`(): Unit = runBlockingTest {
+        val testObservable = viewModel.todoListLiveData.test()
+    }
 }
