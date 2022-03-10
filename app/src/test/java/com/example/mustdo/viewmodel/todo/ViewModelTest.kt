@@ -45,9 +45,10 @@ internal abstract class ViewModelTest :KoinTest{
         Dispatchers.resetMain() //MainDispatcher를 초기화 해주어야 메모리 누수가 발생하지 않음
     }
 
-    protected fun <T> LiveData<T>.test():LiveDataTestObserver<T>{
+    protected fun <T> LiveData<T>.test(): LiveDataTestObserver<T> {
         val testObserver = LiveDataTestObserver<T>()
         observeForever(testObserver)
         return testObserver
     }
+
 }

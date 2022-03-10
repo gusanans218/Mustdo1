@@ -4,10 +4,10 @@ import com.example.mustdo.data.repository.ToDoRepository
 import com.example.mustdo.data.repository.entity.ToDoEntity
 import com.example.mustdo.domain.UseCase
 
-internal class GetToDoListUseCase(
+internal class UpdateToDoListUseCase(
     private val toDoRepository: ToDoRepository
 ) : UseCase {
-    suspend operator fun invoke():List<ToDoEntity> {
-        return toDoRepository.getToDoList()
+    suspend operator fun invoke(toDoEntity: ToDoEntity): Boolean {
+        return toDoRepository.updateToDoItem(toDoEntity)
     }
 }

@@ -1,8 +1,11 @@
 package com.example.mustdo.viewmodel.todo
 
 import com.example.mustdo.data.repository.entity.ToDoEntity
+import com.example.mustdo.domain.todo.GetToDoItemUseCase
+import com.example.mustdo.domain.todo.GetToDoListUseCase
 import com.example.mustdo.domain.todo.InsertToDoListUseCase
 import com.example.mustdo.presentation.list.ListViewModel
+import dalvik.annotation.TestTarget
 import org.junit.Before
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
@@ -18,11 +21,14 @@ import org.koin.test.inject
 // 3. test Item Update
 // 4. test Item Delete All
 
+
+
 @ExperimentalCoroutinesApi
 internal class ListViewModelTest:ViewModelTest() {
 
     private val viewModel: ListViewModel by inject()
     private val insertToDoListUseCase: InsertToDoListUseCase by inject()
+    private val getToDoItemUseCase:GetToDoItemUseCase by inject()
     private val mockList = (0 until 10).map {
         ToDoEntity(
             id = it.toLong(),
@@ -48,5 +54,39 @@ internal class ListViewModelTest:ViewModelTest() {
     @Test
     fun `test viewModel fetch`(): Unit = runBlockingTest {
         val testObservable = viewModel.todoListLiveData.test()
+
+        viewModel.fetchData()
+
+        testObservable.assertValueSequence(
+            listOf(
+                mockList
+            )
+        )
+
+    }
+
+    // Test : 데이터를 업데이트 했을 때 잘 반영되는가
+    @Test
+    fun `test Item Update`():Unit = runBlockingTest {
+        val todo = ToDoEntity(
+            id = 1,
+            title = "title 1",
+            description = "description 1",
+            hasCompleted = true
+        )
+        viewModel.updateEntity(todo)
+        assert(getToDoItemUseCase(todo.id)?.hasCompleted?:false== todo.hasCompleted)
+    }
+    //Test : 데이터를 다 날렸을 때 빈 상태로 보여지는가
+    @Test
+    fun `test Item Delete All`():Unit = runBlockingTest {
+        val testObservable = viewModel.todoListLiveData.test()
+        viewModel.deleteAll()
+        testObservable.assertValueSequence(
+            listOf(
+                mockList,
+                listOf()
+            )
+        )
     }
 }

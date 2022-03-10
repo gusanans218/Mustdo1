@@ -14,6 +14,9 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testOptions {
+            unitTests.returnDefaultValues = true
+        }
     }
 
     buildTypes {
@@ -42,7 +45,6 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    testImplementation "org.mockito.kotlin:mockito-kotlin:x.x.x"
     testImplementation 'org.mockito:mockito-inline:2.21.0'
     testImplementation 'org.mockito:mockito-core:2.28.2'
     testImplementation "android.arch.core:core-testing:1.1.1"
@@ -63,38 +65,22 @@ dependencies {
     implementation "io.insert-koin:koin-androidx-compose:$koin_version"
     testImplementation "io.insert-koin:koin-test:$koin_version"
 
-// 코어
-    implementation "org.koin:koin-core:$koin_version"
-// 유닛 테스트
-    testImplementation "org.koin:koin-test:$koin_version"
-// AndroidX Scope 생성 - 삭제 자동화
-    implementation "io.insert-koin:koin-androidx-scope:$koin_version"
-// AndroidX ViewModel
-    implementation "io.insert-koin:koin-androidx-viewmodel:$koin_version"
-// AndroidX Fragment
-    implementation "io.insert-koin:koin-androidx-fragment:$koin_version"
+
 
     // Koin for Android
     implementation "io.insert-koin:koin-android:$koin_version"
-// Koin Android Scope features
-    implementation "io.insert-koin:koin-android-scope:$koin_version"
-// Koin Android ViewModel features
-    implementation "io.insert-koin:koin-android-viewmodel:$koin_version"
-// Koin Android Experimental features
-    implementation "io.insert-koin:koin-android-ext:$koin_version"
-
     testImplementation 'junit:junit:4.13.2'
     testImplementation "com.google.truth:truth:1.0"
     testImplementation 'org.mockito:mockito-inline:3.4.0'
     testImplementation "android.arch.core:core-testing:1.1.1"
 
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
 
 
     // KTX
-    implementation "org.jetbrains.kotlin:kotlin-reflect:1.4.21"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.5.30"
 
     // Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2'
