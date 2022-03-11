@@ -21,9 +21,10 @@ import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnit
 import org.mockito.junit.MockitoRule
 
-internal abstract class ViewModelTest :KoinTest{
+internal abstract class ViewModelTest: KoinTest {
+
     @get:Rule
-    val mockitoRule: MockitoRule? = MockitoJUnit.rule()
+    val mockitoRule: MockitoRule = MockitoJUnit.rule()
 
     @Mock
     private lateinit var context: Application
@@ -31,7 +32,7 @@ internal abstract class ViewModelTest :KoinTest{
     private val dispatcher = TestCoroutineDispatcher()
 
     @Before
-    fun setup(){
+    fun setup() {
         startKoin {
             androidContext(context)
             modules(appTestModule)

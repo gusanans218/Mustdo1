@@ -5,6 +5,7 @@ import com.example.mustdo.domain.todo.GetToDoItemUseCase
 import com.example.mustdo.domain.todo.GetToDoListUseCase
 import com.example.mustdo.domain.todo.InsertToDoListUseCase
 import com.example.mustdo.presentation.list.ListViewModel
+import com.example.mustdo.presentation.list.ToDoListState
 import dalvik.annotation.TestTarget
 import org.junit.Before
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -28,7 +29,7 @@ internal class ListViewModelTest:ViewModelTest() {
 
     private val viewModel: ListViewModel by inject()
     private val insertToDoListUseCase: InsertToDoListUseCase by inject()
-    private val getToDoItemUseCase:GetToDoItemUseCase by inject()
+    private val getToDoItemUseCase: GetToDoItemUseCase by inject()
     private val mockList = (0 until 10).map {
         ToDoEntity(
             id = it.toLong(),
@@ -42,24 +43,27 @@ internal class ListViewModelTest:ViewModelTest() {
     //2. GetToDoItemUseCase
 
     @Before
-    fun init(){
+    fun init() {
         initData()
     }
-    private fun initData() = runBlockingTest{
-            insertToDoListUseCase(mockList)//데이터 초기화
+
+    private fun initData() = runBlockingTest {
+        insertToDoListUseCase(mockList)//데이터 초기화
     }
 
     //데이터 불러오는 테스트
     //Test 1. 입력된 데이터를 불러와서 검증한다.
     @Test
     fun `test viewModel fetch`(): Unit = runBlockingTest {
-        val testObservable = viewModel.todoListLiveData.test()
+        val testObservable = viewModel.toDoListLiveData.test()
 
         viewModel.fetchData()
 
         testObservable.assertValueSequence(
             listOf(
-                mockList
+                ToDoListState.UnInitialized,
+                ToDoListState.Loading,
+                ToDoListState.Success(mockList)
             )
         )
 
@@ -67,7 +71,7 @@ internal class ListViewModelTest:ViewModelTest() {
 
     // Test : 데이터를 업데이트 했을 때 잘 반영되는가
     @Test
-    fun `test Item Update`():Unit = runBlockingTest {
+    fun `test Item Update`(): Unit = runBlockingTest {
         val todo = ToDoEntity(
             id = 1,
             title = "title 1",
@@ -75,17 +79,19 @@ internal class ListViewModelTest:ViewModelTest() {
             hasCompleted = true
         )
         viewModel.updateEntity(todo)
-        assert(getToDoItemUseCase(todo.id)?.hasCompleted?:false== todo.hasCompleted)
+        assert(getToDoItemUseCase(todo.id)?.hasCompleted ?: false == todo.hasCompleted)
     }
+
     //Test : 데이터를 다 날렸을 때 빈 상태로 보여지는가
     @Test
-    fun `test Item Delete All`():Unit = runBlockingTest {
-        val testObservable = viewModel.todoListLiveData.test()
+    fun `test Item Delete All`(): Unit = runBlockingTest {
+        val testObservable = viewModel.toDoListLiveData.test()
         viewModel.deleteAll()
         testObservable.assertValueSequence(
             listOf(
-                mockList,
-                listOf()
+                ToDoListState.UnInitialized,
+                ToDoListState.Loading,
+                ToDoListState.Success(listOf())
             )
         )
     }
