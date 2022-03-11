@@ -25,13 +25,14 @@ internal class DetailViewModel(
     val todoDetailLiveData:LiveData<ToDoDetailState> = _toDoDetailLiveData
 
     override fun fetchData(): Job = viewModelScope.launch {
-        _toDoDetailLiveData.postValue(ToDoDetailState.Loading)
         when (detailMode) {
             DetailMode.WRITE -> {
                 _toDoDetailLiveData.postValue(ToDoDetailState.Write)
 
             }
             DetailMode.DETAIL -> {
+                _toDoDetailLiveData.postValue(ToDoDetailState.Loading)
+
                 try {
                     getToDoItemUseCase(id)?.let {
                         _toDoDetailLiveData.postValue(ToDoDetailState.Success(it))
@@ -62,6 +63,7 @@ internal class DetailViewModel(
         when (detailMode) {
             DetailMode.WRITE -> {
                 try {
+
                     val toDoEntity = ToDoEntity(title = title, description =  description)
                     id = insertToDoUseCase(toDoEntity)
                     _toDoDetailLiveData.postValue(ToDoDetailState.Success(toDoEntity))

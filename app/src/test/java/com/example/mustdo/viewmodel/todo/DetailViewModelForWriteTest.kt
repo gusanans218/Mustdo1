@@ -2,6 +2,7 @@ package com.example.mustdo.viewmodel.todo
 
 import com.example.mustdo.data.repository.entity.ToDoEntity
 import com.example.mustdo.presentation.list.ListViewModel
+import com.example.mustdo.presentation.list.ToDoListState
 import com.example.mustdo.presentation.list.detail.DetailMode
 import com.example.mustdo.presentation.list.detail.DetailViewModel
 import com.example.mustdo.presentation.list.detail.ToDoDetailState
@@ -39,8 +40,40 @@ internal class DetailViewModelForWriteTest:ViewModelTest(){
         testObservable.assertValueSequence(
             listOf(
                 ToDoDetailState.UnInitialized,
-                ToDoDetailState.Loading,
                 ToDoDetailState.Write
+            )
+
+        )
+    }
+    @Test
+    fun `test insert todo`() = runBlockingTest {
+         val detailTestObservable = detailViewModel.todoDetailLiveData.test()
+        val listTestObservable = listViewModel.toDoListLiveData.test()
+
+        detailViewModel.writeToDo(
+            title = todo.title,
+            description = todo.description
+        )
+        detailTestObservable.assertValueSequence(
+            listOf(
+                ToDoDetailState.UnInitialized,
+                ToDoDetailState.Loading,
+                ToDoDetailState.Success(todo)
+            )
+        )
+        assert(detailViewModel.detailMode == DetailMode.DETAIL)
+        assert(detailViewModel.id == id)
+        //뒤로 나가서 리스트 보기
+        listViewModel.fetchData()
+        listTestObservable.assertValueSequence(
+            listOf(
+                ToDoListState.UnInitialized,
+                ToDoListState.Loading,
+                ToDoListState.Success(
+                    listOf(
+                        todo
+                    )
+                )
             )
 
         )
