@@ -59,7 +59,7 @@ internal class DetailViewModelTest:ViewModelTest() {
     @Test
     fun `test delete todo`() = runBlockingTest {
         val detailTestObservable = detailViewModel.toDoDetailLiveData.test()
-        detailViewModel.deleteTodo()
+        detailViewModel.deleteToDo()
 
         detailTestObservable.assertValueSequence(
             listOf(
@@ -75,6 +75,27 @@ internal class DetailViewModelTest:ViewModelTest() {
             ToDoListState.UnInitialized,
                 ToDoListState.Loading,
                 ToDoListState.Success(listOf())
+            )
+        )
+    }
+    @Test
+    fun `test update todo`() = runBlockingTest {
+        val testObservable = detailViewModel.toDoDetailLiveData.test()
+        val updateTitle = "title 1 update"
+        val updateDecription = "description 1 update"
+        val updateToDo = todo.copy(
+            title = updateTitle,
+            description = updateDecription
+        )
+        detailViewModel.writeToDo(
+            title = updateTitle,
+            description = updateDecription
+        )
+        testObservable.assertValueSequence(
+            listOf(
+                ToDoDetailState.UnInitialized,
+                ToDoDetailState.Loading,
+                ToDoDetailState.Success(updateToDo)
             )
         )
     }

@@ -2,20 +2,23 @@ package com.example.mustdo.presentation.list.detail
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import androidx.room.PrimaryKey
+import com.example.mustdo.data.repository.entity.ToDoEntity
 import com.example.mustdo.domain.todo.DeleteToDoItemUseCase
 import com.example.mustdo.domain.todo.GetToDoItemUseCase
+import com.example.mustdo.domain.todo.InsertToDoItemUseCase
+import com.example.mustdo.domain.todo.UpdateToDoUseCase
 import com.example.mustdo.presentation.BaseViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.lang.Exception
-import java.security.PrivateKey
 
 internal class DetailViewModel(
     var detailMode: DetailMode,
     var id: Long = -1,
     private val getToDoItemUseCase:GetToDoItemUseCase,
-    private val deleteToDoItemUseCase: DeleteToDoItemUseCase
+    private val deleteToDoItemUseCase: DeleteToDoItemUseCase,
+    private val updateToDoUseCase: UpdateToDoUseCase,
+    private val insertToDoUseCase: InsertToDoItemUseCase
 ):BaseViewModel() {
 
     private var _toDoDetailLiveData= MutableLiveData<ToDoDetailState>(ToDoDetailState.UnInitialized)
@@ -43,21 +46,45 @@ internal class DetailViewModel(
         }
     }
 
-    fun deleteTodo() = viewModelScope.launch {
+    fun deleteToDo() = viewModelScope.launch {
         _toDoDetailLiveData.postValue(ToDoDetailState.Loading)
         try {
-            if(deleteToDoItemUseCase(id) == true){
-                _toDoDetailLiveData.postValue(ToDoDetailState.Delete)
-
-            }else{
-                _toDoDetailLiveData.postValue(ToDoDetailState.Error)
-
-            }
-        }catch (e:Exception){
+            deleteToDoItemUseCase(id)
+            _toDoDetailLiveData.postValue(ToDoDetailState.Delete)
+        } catch (e: Exception) {
+            e.printStackTrace()
             _toDoDetailLiveData.postValue(ToDoDetailState.Error)
-
         }
-        _toDoDetailLiveData.postValue(ToDoDetailState.Error)
-
     }
+    fun writeToDo(title: String, description: String) = viewModelScope.launch {
+        _toDoDetailLiveData.postValue(ToDoDetailState.Loading)
+        when (detailMode) {
+            DetailMode.WRITE -> {
+                try {
+                    val toDoEntity = ToDoEntity(title = title, description =  description)
+                    id = insertToDoUseCase(toDoEntity)
+                    _toDoDetailLiveData.postValue(ToDoDetailState.Success(toDoEntity))
+                    detailMode = DetailMode.DETAIL
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    _toDoDetailLiveData.postValue(ToDoDetailState.Error)
+                }
+            }
+            DetailMode.DETAIL -> {
+                try {
+                    getToDoItemUseCase(id)?.let {
+                        val updateToDoEntity = it.copy(title = title, description = description)
+                        updateToDoUseCase(updateToDoEntity)
+                        _toDoDetailLiveData.postValue(ToDoDetailState.Success(updateToDoEntity))
+                    } ?: kotlin.run {
+                        _toDoDetailLiveData.postValue(ToDoDetailState.Error)
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    _toDoDetailLiveData.postValue(ToDoDetailState.Error)
+                }
+            }
+        }
+    }
+
 }

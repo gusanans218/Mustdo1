@@ -6,8 +6,10 @@ import com.example.mustdo.domain.UseCase
 
 internal class InsertToDoItemUseCase(
     private val toDoRepository: ToDoRepository
-) : UseCase {
-    suspend operator fun invoke(toDoItem:ToDoEntity){
-        return toDoRepository.insertToDoItem(toDoItem)
+): UseCase {
+
+    suspend operator fun invoke(toDoEntity: ToDoEntity): Long {
+        return toDoRepository.insertToDoItem(toDoEntity)
     }
+
 }

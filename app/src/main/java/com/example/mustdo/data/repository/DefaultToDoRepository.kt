@@ -8,7 +8,7 @@ class DefaultToDoRepository:ToDoRepository {
         return getToDoList()
     }
 
-    override suspend fun insertToDoItem(toDoItem: ToDoEntity) {
+    override suspend fun insertToDoItem(toDoEntity: ToDoEntity): Long  {
         TODO("Not yet implemented")
     }
 
@@ -17,7 +17,7 @@ class DefaultToDoRepository:ToDoRepository {
 
     }
 
-    override suspend fun updateToDoItem(toDoItem: ToDoEntity):Boolean {
+    override suspend fun updateToDoItem(toDoItem: ToDoEntity) {
         TODO()
     }
 
@@ -25,7 +25,7 @@ class DefaultToDoRepository:ToDoRepository {
         TODO()
     }
 
-    override suspend fun deleteToDoItem(id: Long): Boolean {
+    override suspend fun deleteToDoItem(id: Long) {
         TODO("Not yet implemented")
     }
 

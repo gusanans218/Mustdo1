@@ -17,13 +17,13 @@ var appTestModule = module {
         DetailViewModel(
             detailMode = detailMode,
             id = id,
-            get(),get()
+            get(),get(),get(),get()
         )
     }
     //UseCase
     factory { GetToDoListUseCase(get()) }
     factory { InsertToDoListUseCase(get()) }
-    factory { UpdateToDoListUseCase(get()) }
+    factory { UpdateToDoUseCase(get()) }
     factory { InsertToDoItemUseCase(get()) }
     factory { GetToDoItemUseCase(get()) }
     factory { DeleteAllToDoItemUseCase(get()) }

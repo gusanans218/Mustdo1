@@ -6,8 +6,10 @@ import com.example.mustdo.domain.UseCase
 
 internal class DeleteToDoItemUseCase(
     private val toDoRepository: ToDoRepository
-) : UseCase {
-    suspend operator fun invoke(itemId:Long): Boolean? {
-        return toDoRepository.deleteToDoItem(itemId)
+): UseCase {
+
+    suspend operator fun invoke(id: Long) {
+        return toDoRepository.deleteToDoItem(id)
     }
+
 }
