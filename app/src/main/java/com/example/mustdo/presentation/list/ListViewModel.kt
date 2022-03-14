@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.mustdo.data.repository.entity.ToDoEntity
 import com.example.mustdo.domain.todo.DeleteAllToDoItemUseCase
 import com.example.mustdo.domain.todo.GetToDoListUseCase
+import com.example.mustdo.domain.todo.InsertToDoListUseCase
 import com.example.mustdo.domain.todo.UpdateToDoUseCase
 import com.example.mustdo.presentation.BaseViewModel
 import kotlinx.coroutines.Job
@@ -19,13 +20,25 @@ import kotlinx.coroutines.launch
 internal class ListViewModel(
     private val getToDoListUseCase: GetToDoListUseCase,
     private val updateToDoListUseCase: UpdateToDoUseCase,
-    private val deleteAllToDoItemUseCase: DeleteAllToDoItemUseCase
+    private val deleteAllToDoItemUseCase: DeleteAllToDoItemUseCase,
+    private val insertToDoListUseCase:InsertToDoListUseCase
 ): BaseViewModel() {
     private var _toDoListLiveData = MutableLiveData<ToDoListState>(ToDoListState.UnInitialized)
     val toDoListLiveData: LiveData<ToDoListState> = _toDoListLiveData
 
+
     override fun fetchData(): Job = viewModelScope.launch{
         _toDoListLiveData.postValue(ToDoListState.Loading)
+        insertToDoListUseCase(
+            (0 until 10).map {
+                ToDoEntity(
+                    id = it.toLong(),
+                    title = "title $it",
+                    description = "description $it",
+                    hasCompleted = false
+                )
+            }
+        )
         _toDoListLiveData.postValue(ToDoListState.Success(getToDoListUseCase()))
     }
     fun updateEntity(toDoEntity: ToDoEntity)=viewModelScope.launch{

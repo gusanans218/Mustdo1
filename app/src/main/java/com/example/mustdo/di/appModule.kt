@@ -16,36 +16,35 @@ import com.example.mustdo.domain.todo.UpdateToDoUseCase
 import com.example.mustdo.presentation.list.ListViewModel
 import com.example.mustdo.presentation.list.detail.DetailMode
 import com.example.mustdo.presentation.list.detail.DetailViewModel
+import kotlinx.coroutines.Dispatchers
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-internal val appModule = module{
-    //viewModel
-    viewModel{ ListViewModel(get(),get(),get()) }
-    viewModel{(detailMode: DetailMode,id:Long) ->
-        DetailViewModel(
-            detailMode = detailMode,
-            id = id,
-            get(),get(),get(),get()
-        )
-    }
-    //UseCase
-    factory { GetToDoListUseCase(get()) }
-    factory { InsertToDoListUseCase(get()) }
-    factory { UpdateToDoUseCase(get()) }
-    factory { InsertToDoItemUseCase(get()) }
-    factory { GetToDoItemUseCase(get()) }
-    factory { DeleteAllToDoItemUseCase(get()) }
-    factory { DeleteToDoItemUseCase(get()) }
+internal val appModule = module {
 
-    //Repository
-    single<ToDoRepository> { DefaultToDoRepository(get(),get()) }
+    single { Dispatchers.Main }
+    single { Dispatchers.IO }
+
+    factory { GetToDoListUseCase(get()) }
+    factory { GetToDoItemUseCase(get()) }
+    factory { InsertToDoListUseCase(get()) }
+    factory { InsertToDoItemUseCase(get()) }
+    factory { DeleteToDoItemUseCase(get()) }
+    factory { DeleteAllToDoItemUseCase(get()) }
+    factory { UpdateToDoUseCase(get()) }
+
+    single<ToDoRepository> { DefaultToDoRepository(get(), get()) }
 
     single { provideDB(androidApplication()) }
-    single { provideToDoDao(get())}
+    single { provideToDoDao(get()) }
+
+    viewModel { ListViewModel(get(), get(), get(),get()) }
+    viewModel { (detailMode: DetailMode, id: Long) -> DetailViewModel(detailMode, id, get(), get(), get(), get()) }
 
 }
-internal fun provideDB(context: Context):ToDoDatabase =
+
+internal fun provideDB(context: Context): ToDoDatabase =
     Room.databaseBuilder(context, ToDoDatabase::class.java, ToDoDatabase.DB_NAME).build()
+
 internal fun provideToDoDao(database: ToDoDatabase) = database.toDoDao()

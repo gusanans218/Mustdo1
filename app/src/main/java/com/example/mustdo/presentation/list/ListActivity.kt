@@ -2,14 +2,18 @@ package com.example.mustdo.presentation.list
 
 import android.app.Activity
 import android.content.Intent
+import android.content.Intent.getIntent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.core.view.isGone
 import androidx.recyclerview.widget.LinearLayoutManager
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.example.mustdo.R
 import com.example.mustdo.databinding.ActivityListBinding
 import com.example.mustdo.presentation.BaseActivity
+import com.example.mustdo.presentation.list.detail.DetailActivity
 import com.example.mustdo.presentation.list.detail.DetailMode
 import com.example.mustdo.presentation.list.view.ToDoAdapter
 import kotlinx.coroutines.CoroutineScope
@@ -73,7 +77,7 @@ internal class ListActivity : BaseActivity<ListViewModel>(), CoroutineScope {
         refreshLayout.isRefreshing = true
     }
 
-    private fun handleSuccessState(state: ToDoListState.Suceess) = with(binding) {
+    private fun handleSuccessState(state: ToDoListState.Success) = with(binding) {
         refreshLayout.isEnabled = state.toDoList.isNotEmpty()
         refreshLayout.isRefreshing = false
 
@@ -116,7 +120,7 @@ internal class ListActivity : BaseActivity<ListViewModel>(), CoroutineScope {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.list_menu, menu)
         return true
     }

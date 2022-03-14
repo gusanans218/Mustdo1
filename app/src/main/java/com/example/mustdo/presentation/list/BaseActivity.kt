@@ -5,7 +5,7 @@ import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.coroutines.Job
 
-internal abstract class BaseActivity<VM:BaseViewModel>:AppCompatActivity() {
+abstract class BaseActivity<VM:BaseViewModel>:AppCompatActivity() {
     abstract val viewModel:VM
     private lateinit var fetchJob: Job
 

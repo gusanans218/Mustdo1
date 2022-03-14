@@ -4,7 +4,7 @@ import com.example.mustdo.data.repository.ToDoRepository
 import com.example.mustdo.data.repository.entity.ToDoEntity
 import com.example.mustdo.domain.UseCase
 
-internal class GetToDoItemUseCase(
+class GetToDoItemUseCase(
     private val toDoRepository: ToDoRepository
 ) : UseCase {
     suspend operator fun invoke(itemId:Long): ToDoEntity? {

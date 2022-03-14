@@ -12,7 +12,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
-internal class DetailViewModel(
+class DetailViewModel(
     var detailMode: DetailMode,
     var id: Long = -1,
     private val getToDoItemUseCase:GetToDoItemUseCase,
@@ -57,6 +57,9 @@ internal class DetailViewModel(
             e.printStackTrace()
             _toDoDetailLiveData.postValue(ToDoDetailState.Error)
         }
+    }
+    fun setModifyMode() = viewModelScope.launch {
+        _toDoDetailLiveData.postValue(ToDoDetailState.Modify)
     }
     fun writeToDo(title: String, description: String) = viewModelScope.launch {
         _toDoDetailLiveData.postValue(ToDoDetailState.Loading)

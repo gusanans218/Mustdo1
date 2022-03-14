@@ -3,13 +3,16 @@
     package="com.example.mustdo">
 
     <application
+        android:name=".AopPart5Chapter01Application"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Mustdo"
-        android:name=".AopPart5Chapter01Application">
+        android:theme="@style/Theme.AppCompat.NoActionBar">
+        <activity
+            android:name=".presentation.list.detail.DetailActivity"
+            android:exported="false" />
         <activity
             android:name=".presentation.list.ListActivity"
             android:exported="true">
