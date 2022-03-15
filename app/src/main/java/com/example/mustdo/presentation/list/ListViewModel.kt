@@ -19,30 +19,20 @@ import kotlinx.coroutines.launch
 
 internal class ListViewModel(
     private val getToDoListUseCase: GetToDoListUseCase,
-    private val updateToDoListUseCase: UpdateToDoUseCase,
-    private val deleteAllToDoItemUseCase: DeleteAllToDoItemUseCase,
-    private val insertToDoListUseCase:InsertToDoListUseCase
+    private val updateToDoUseCase: UpdateToDoUseCase,
+    private val deleteAllToDoItemUseCase: DeleteAllToDoItemUseCase
 ): BaseViewModel() {
+
     private var _toDoListLiveData = MutableLiveData<ToDoListState>(ToDoListState.UnInitialized)
     val toDoListLiveData: LiveData<ToDoListState> = _toDoListLiveData
 
-
-    override fun fetchData(): Job = viewModelScope.launch{
+    override fun fetchData(): Job = viewModelScope.launch {
         _toDoListLiveData.postValue(ToDoListState.Loading)
-        insertToDoListUseCase(
-            (0 until 10).map {
-                ToDoEntity(
-                    id = it.toLong(),
-                    title = "title $it",
-                    description = "description $it",
-                    hasCompleted = false
-                )
-            }
-        )
         _toDoListLiveData.postValue(ToDoListState.Success(getToDoListUseCase()))
     }
-    fun updateEntity(toDoEntity: ToDoEntity)=viewModelScope.launch{
-        updateToDoListUseCase(toDoEntity)
+
+    fun updateEntity(toDoEntity: ToDoEntity) = viewModelScope.launch {
+        updateToDoUseCase(toDoEntity)
     }
 
     fun deleteAll() = viewModelScope.launch {

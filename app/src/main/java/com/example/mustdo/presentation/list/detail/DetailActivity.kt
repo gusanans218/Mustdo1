@@ -45,7 +45,7 @@ internal class DetailActivity : BaseActivity<DetailViewModel>() {
         setResult(Activity.RESULT_OK)
     }
 
-    override fun observeData() = viewModel.todoDetailLiveData.observe(this@DetailActivity) {
+    override fun observeData() = viewModel.toDoDetailLiveData.observe(this@DetailActivity) {
         when (it) {
             is ToDoDetailState.UnInitialized -> {
                 initViews(binding)

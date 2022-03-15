@@ -7,37 +7,35 @@ import kotlinx.coroutines.withContext
 
 class DefaultToDoRepository(
     private val toDoDao: ToDoDao,
-    private val ioDispatcher:CoroutineDispatcher
-) :ToDoRepository {
+    private val ioDispatcher: CoroutineDispatcher
+): ToDoRepository {
 
     override suspend fun getToDoList(): List<ToDoEntity> = withContext(ioDispatcher) {
-            toDoDao.getAll()
+        toDoDao.getAll()
     }
 
-    override suspend fun getToDoItem(itemId: Long): ToDoEntity? = withContext(ioDispatcher){
-        toDoDao.getById(itemId)
+    override suspend fun getToDoItem(id: Long): ToDoEntity? = withContext(ioDispatcher) {
+        toDoDao.getById(id)
     }
 
+    override suspend fun insertToDoItem(toDoEntity: ToDoEntity): Long = withContext(ioDispatcher) {
+        toDoDao.insert(toDoEntity)
+    }
 
-
-    override suspend fun insertToDoList(toDoList: List<ToDoEntity>): Unit = withContext(ioDispatcher) {
+    override suspend fun insertToDoList(toDoList: List<ToDoEntity>) = withContext(ioDispatcher) {
         toDoDao.insert(toDoList)
     }
-    override suspend fun insertToDoItem(toDoItem: ToDoEntity): Long = withContext(ioDispatcher) {
-        toDoDao.insert(toDoItem)
+
+    override suspend fun updateToDoItem(toDoEntity: ToDoEntity) = withContext(ioDispatcher) {
+        toDoDao.update(toDoEntity)
     }
 
-    override suspend fun updateToDoItem(toDoItem: ToDoEntity): Unit = withContext(ioDispatcher) {
-        toDoDao.update(toDoItem)
+    override suspend fun deleteToDoItem(id: Long) = withContext(ioDispatcher) {
+        toDoDao.delete(id)
     }
 
-
-
-    override suspend fun deleteToDoItem(id: Long): Unit = withContext(ioDispatcher){
-            toDoDao.delete(id)
-    }
-
-    override suspend fun deleteAll() {
+    override suspend fun deleteAll() = withContext(ioDispatcher) {
         toDoDao.deleteAll()
-        }
+    }
+
 }

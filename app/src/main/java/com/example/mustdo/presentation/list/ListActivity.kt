@@ -126,3 +126,4 @@ internal class ListActivity : BaseActivity<ListViewModel>(), CoroutineScope {
     }
 
 }
+
