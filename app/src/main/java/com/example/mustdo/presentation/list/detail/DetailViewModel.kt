@@ -64,6 +64,7 @@ internal class DetailViewModel(
         _toDoDetailLiveData.postValue(ToDoDetailState.Loading)
         when (detailMode) {
             DetailMode.WRITE -> {
+
                 try {
                     val toDoEntity = ToDoEntity(title = title, description =  description)
                     id = insertToDoUseCase(toDoEntity)
@@ -75,6 +76,7 @@ internal class DetailViewModel(
                 }
             }
             DetailMode.DETAIL -> {
+
                 try {
                     getToDoItemUseCase(id)?.let {
                         val updateToDoEntity = it.copy(title = title, description = description)

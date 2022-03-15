@@ -34,7 +34,7 @@ internal class DetailViewModelForWriteTest:ViewModelTest(){
     )
     @Test
     fun `test viewModel fetch`() = runBlockingTest {
-        val testObservable = detailViewModel.todoDetailLiveData.test()
+        val testObservable = detailViewModel.toDoDetailLiveData.test()
         detailViewModel.fetchData()
 
         testObservable.assertValueSequence(
@@ -47,7 +47,7 @@ internal class DetailViewModelForWriteTest:ViewModelTest(){
     }
     @Test
     fun `test insert todo`() = runBlockingTest {
-         val detailTestObservable = detailViewModel.todoDetailLiveData.test()
+         val detailTestObservable = detailViewModel.toDoDetailLiveData.test()
         val listTestObservable = listViewModel.toDoListLiveData.test()
 
         detailViewModel.writeToDo(

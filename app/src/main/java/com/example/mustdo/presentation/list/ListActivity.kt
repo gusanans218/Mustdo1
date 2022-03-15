@@ -27,7 +27,6 @@ internal class ListActivity : BaseActivity<ListViewModel>(), CoroutineScope {
         get() = Dispatchers.Main + Job()
 
     private lateinit var binding: ActivityListBinding
-
     private val adapter = ToDoAdapter()
 
     override val viewModel: ListViewModel by viewModel()

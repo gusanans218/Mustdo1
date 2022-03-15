@@ -45,7 +45,7 @@ internal class DetailViewModelTest:ViewModelTest() {
 
     @Test
     fun `test viewModel fetch()`() = runBlockingTest {
-        val testObservable = detailViewModel.todoDetailLiveData.test()
+        val testObservable = detailViewModel.toDoDetailLiveData.test()
         detailViewModel.fetchData()
         testObservable.assertValueSequence(
             listOf(
@@ -58,7 +58,7 @@ internal class DetailViewModelTest:ViewModelTest() {
     }
     @Test
     fun `test delete todo`() = runBlockingTest {
-        val detailTestObservable = detailViewModel.todoDetailLiveData.test()
+        val detailTestObservable = detailViewModel.toDoDetailLiveData.test()
         detailViewModel.deleteToDo()
 
         detailTestObservable.assertValueSequence(
@@ -80,7 +80,7 @@ internal class DetailViewModelTest:ViewModelTest() {
     }
     @Test
     fun `test update todo`() = runBlockingTest {
-        val testObservable = detailViewModel.todoDetailLiveData.test()
+        val testObservable = detailViewModel.toDoDetailLiveData.test()
         val updateTitle = "title 1 update"
         val updateDecription = "description 1 update"
         val updateToDo = todo.copy(
