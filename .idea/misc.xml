@@ -3,9 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/SeungHyun/AndroidStudioProjects/Mustdo/app/src/main/res/drawable/detail_background_btn.xml" value="0.1575" />
         <entry key="..\:/Users/SeungHyun/AndroidStudioProjects/Mustdo/app/src/main/res/drawable/id_plus.xml" value="0.1245" />
-        <entry key="..\:/Users/SeungHyun/AndroidStudioProjects/Mustdo/app/src/main/res/layout/activity_detail.xml" value="0.1" />
+        <entry key="..\:/Users/SeungHyun/AndroidStudioProjects/Mustdo/app/src/main/res/layout/activity_detail.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/SeungHyun/AndroidStudioProjects/Mustdo/app/src/main/res/layout/activity_list.xml" value="0.1" />
+        <entry key="..\:/Users/SeungHyun/AndroidStudioProjects/Mustdo/app/src/main/res/layout/activity_splash.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/SeungHyun/AndroidStudioProjects/Mustdo/app/src/main/res/layout/viewholder_todo_item.xml" value="0.17753623188405798" />
         <entry key="..\:/Users/SeungHyun/AndroidStudioProjects/Mustdo/app/src/main/res/menu/list_menu.xml" value="0.1" />
       </map>
