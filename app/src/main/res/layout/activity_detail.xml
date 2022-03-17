@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#97B0D1"
+    android:background="#97DBAE"
     tools:context=".presentation.list.detail.DetailActivity">
 
     <ScrollView
@@ -30,15 +30,16 @@
                 android:textColor="@color/white"
                 android:layout_marginTop="40dp"
                 android:layout_marginBottom="20dp"
-                android:layout_marginStart="10dp"/>
+                android:layout_marginStart="20dp"/>
 
 
             <EditText
                 android:id="@+id/titleInput"
-                android:layout_width="match_parent"
+                android:layout_width="330dp"
                 android:layout_height="40dp"
                 android:maxLines="1"
-                android:textColor="@color/white"
+                android:layout_marginStart="16dp"
+                android:textColor="#01417B"
                 android:layout_marginBottom="40dp"
                 android:background="@drawable/detail_title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title" />
@@ -52,15 +53,16 @@
                 android:textColor="@color/white"
                 android:textSize="20dp"
                 android:layout_marginBottom="20dp"
-                android:layout_marginStart="10dp"/>
+                android:layout_marginStart="20dp"/>
 
 
             <EditText
                 android:id="@+id/descriptionInput"
-                android:layout_width="match_parent"
+                android:layout_width="330dp"
                 android:layout_height="350dp"
-                android:textColor="@color/white"
+                android:textColor="#01417B"
                 android:gravity="top"
+                android:layout_marginStart="16dp"
                 android:background="@drawable/detail_description"
                 android:hint="@string/description" />
 
@@ -82,9 +84,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/modifyButton"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="10dp"
-        android:backgroundTint="#103163"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="#F4BBBB"
         android:text="@string/delete"
         android:background="@drawable/detail_delete_btn"
         android:textColor="@color/white"
@@ -104,7 +106,7 @@
         android:layout_marginStart="4dp"
         android:textColor="@color/white"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="20dp"
         android:backgroundTint="@color/blue"
         android:text="@string/modify"
         android:background="@drawable/detail_update_btn"
@@ -123,6 +125,7 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="4dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/detail_background_btn"
         android:text="@string/update"
         android:fontFamily="@font/applem"

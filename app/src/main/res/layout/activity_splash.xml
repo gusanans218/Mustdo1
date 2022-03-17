@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#97B0D1"
+    android:background="#97DBAE"
     tools:context=".SplashActivity">
 
     <TextView

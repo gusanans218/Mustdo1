@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#97B0D1"
+    android:background="#97DBAE"
     tools:context=".presentation.list.ListActivity">
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refreshLayout"
@@ -45,6 +45,6 @@
         android:src="@drawable/ic_plus"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:backgroundTint="#93C8DF"
+        app:backgroundTint="@color/white"
         app:tint="@color/white" />
 </androidx.constraintlayout.widget.ConstraintLayout>
