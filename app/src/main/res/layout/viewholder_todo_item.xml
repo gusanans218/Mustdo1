@@ -7,14 +7,14 @@
     android:layout_height="64dp"
     android:id="@+id/container">
 
-    <CheckBox
+    <androidx.appcompat.widget.AppCompatCheckBox
         android:id="@+id/checkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         android:fontFamily="@font/applem"
         android:textSize="20dp"
-        android:background="@drawable/state_checked"
+        android:button="@drawable/state_checked"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginHorizontal="8dp"
