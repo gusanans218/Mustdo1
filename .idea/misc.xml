@@ -3,6 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Lenovo/StudioProjects/Mustdo1/app/src/main/res/drawable/ic_plus.xml" value="0.1" />
+        <entry key="..\:/Users/Lenovo/StudioProjects/Mustdo1/app/src/main/res/drawable/state_checked.xml" value="0.1" />
+        <entry key="..\:/Users/Lenovo/StudioProjects/Mustdo1/app/src/main/res/layout/activity_detail.xml" value="0.1" />
+        <entry key="..\:/Users/Lenovo/StudioProjects/Mustdo1/app/src/main/res/layout/activity_list.xml" value="0.13333333333333333" />
+        <entry key="..\:/Users/Lenovo/StudioProjects/Mustdo1/app/src/main/res/layout/activity_splash.xml" value="0.22" />
+        <entry key="..\:/Users/Lenovo/StudioProjects/Mustdo1/app/src/main/res/layout/viewholder_todo_item.xml" value="0.7333333333333334" />
         <entry key="..\:/Users/SeungHyun/AndroidStudioProjects/Mustdo/app/src/main/res/drawable/detail_background_btn.xml" value="0.1575" />
         <entry key="..\:/Users/SeungHyun/AndroidStudioProjects/Mustdo/app/src/main/res/drawable/detail_delete.xml" value="0.1" />
         <entry key="..\:/Users/SeungHyun/AndroidStudioProjects/Mustdo/app/src/main/res/drawable/detail_description.xml" value="0.1545" />
